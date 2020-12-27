@@ -258,9 +258,9 @@ fn main() {
 }
 
 #[inline]
-fn send_audio(swr_frame: &mut Audio, rb_tx: &mut Producer<f32>, status: &mut Arc<PlayerStatus>) {
+fn send_audio(audio_frame: &mut Audio, rb_tx: &mut Producer<f32>, status: &mut Arc<PlayerStatus>) {
     // void* arrays in C makes me unsafe :(
-    let (head, data, tail) = unsafe { swr_frame.data(0).align_to::<f32>() };
+    let (head, data, tail) = unsafe { audio_frame.data(0).align_to::<f32>() };
 
     assert!(head.is_empty());
     assert!(tail.is_empty());
