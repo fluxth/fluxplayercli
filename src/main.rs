@@ -14,7 +14,7 @@ use ffmpeg::{
     time::sleep,
     format::{
         Sample,
-        sample::Type::{Packed}
+        sample::Type::Packed
     }
 };
 
@@ -138,7 +138,7 @@ fn main() {
                 let pa = pa::PortAudio::new().unwrap();
                 let pa_settings = pa
                     .default_output_stream_settings::<f32>(CHANNELS, SAMPLE_RATE, FRAMES_PER_BUFFER)
-                    .unwrap();
+                    .expect("Could not set output stream settings.");
 
                 println!("\n{}[Play Device]", " ".repeat(17));
                 let default_out = pa.device_info(pa.default_output_device().unwrap()).unwrap();
@@ -181,7 +181,8 @@ fn main() {
                     pa::Continue
                 };
 
-                let mut pa_stream = pa.open_non_blocking_stream(pa_settings, callback).unwrap();
+                let mut pa_stream = pa.open_non_blocking_stream(pa_settings, callback)
+                    .expect("Could not open output device.");
 
                 let mut decode_frame = ffmpeg::frame::Audio::empty();
                 let mut swr_frame = ffmpeg::frame::Audio::empty();
@@ -262,8 +263,7 @@ fn send_audio(audio_frame: &mut Audio, rb_tx: &mut Producer<f32>, status: &mut A
     // void* arrays in C makes me unsafe :(
     let (head, data, tail) = unsafe { audio_frame.data(0).align_to::<f32>() };
 
-    assert!(head.is_empty());
-    assert!(tail.is_empty());
+    assert!(head.is_empty() && tail.is_empty());
 
     let mut sent_size = 0;
     while sent_size < data.len() {
