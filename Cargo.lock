@@ -167,6 +167,7 @@ name = "fluxplayercli"
 version = "0.1.0"
 dependencies = [
  "ffmpeg",
+ "libsoxr",
  "portaudio",
  "ringbuf",
 ]
@@ -221,6 +222,27 @@ checksum = "e9367bdfa836b7e3cf895867f7a570283444da90562980ec2263d6e1569b16bc"
 dependencies = [
  "cfg-if 1.0.0",
  "winapi",
+]
+
+[[package]]
+name = "libsoxr"
+version = "0.2.5"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "e77da969845b0df2f92b495fd57ba162c2b32a1422583910b9a472a9bc200068"
+dependencies = [
+ "bitflags 1.2.1",
+ "libc",
+ "libsoxr-sys",
+ "pkg-config",
+]
+
+[[package]]
+name = "libsoxr-sys"
+version = "0.1.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "5464eec58fb13764162f808c4be973f52e19856027175ce3da5e4222bb448ab5"
+dependencies = [
+ "pkg-config",
 ]
 
 [[package]]

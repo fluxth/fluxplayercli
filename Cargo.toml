@@ -7,6 +7,7 @@ edition = "2018"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-portaudio = "0.7.0"
+portaudio = "0.7"
 ffmpeg = { git = "git://github.com/meh/rust-ffmpeg.git", branch = "master" }
-ringbuf = "0.2.2"
+libsoxr = "0.2"
+ringbuf = "0.2"
